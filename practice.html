@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+        <link rel="stylesheet" type="text/css" href="practice.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                for(let i=1;i<152;i++){
+                    $('body').append('<img src="http://pokeapi.co/media/img/'+i+'.png" id="'+i+'">')
+                }
+            })
+            $(document).on('click','img',function(){
+                $('#dex').empty();
+                var id = $(this).attr('id')
+                var img= $(this).attr('src')
+                $.get("http://pokeapi.co/api/v2/pokemon/"+id+"/",function(res){
+                    var name = '<h3>Name: '+res.name+'</h3>',
+                    picture = '<img src="'+img+'">',
+                    types = '<h3> Types: '+ res.types[0].type.name+', '+res.types[1].type.name+'</h3>',
+                    height = '<h3>Height: '+res.height+'</h3>',
+                    weight = '<h3>Weight:'+res.weight+'</h3>'
+                    $('#dex').append(name+picture+types+height+weight)
+                })
+            })
+        </script>
+   </head>
+   <body>
+        <div id="dex">
+
+        </div> 
+   </body>
+</html>
